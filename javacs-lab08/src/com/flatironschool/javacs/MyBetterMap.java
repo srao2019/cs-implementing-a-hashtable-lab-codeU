@@ -66,20 +66,29 @@ public class MyBetterMap<K, V> implements Map<K, V> {
 	@Override
 	public boolean containsKey(Object target) {
 		// to find a key, we only have to search one map
-        // TODO: fill this in.
-		return false;
+		if(chooseMap(target).containsKey(target))
+			return true;
+		else 
+			return false;
 	}
 
 	@Override
 	public boolean containsValue(Object target) {
 		// to find a value, we have to search all maps
-        // TODO: fill this in.
+		for(MyLinearMap m: maps){
+			if(m.containsValue(target))
+				return true;
+		}
 		return false;
 	}
 
 	@Override
 	public Set<Map.Entry<K, V>> entrySet() {
-		throw new UnsupportedOperationException();
+		Set<Map.Entry<K, V>> set = new HashSet<Map.Entry<K, V>>();
+		for (MyLinearMap<K, V> map: maps) {
+			set.addAll(map.entrySet());
+		}
+		return set;
 	}
 
 	@Override
